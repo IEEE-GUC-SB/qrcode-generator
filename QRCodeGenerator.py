@@ -27,6 +27,6 @@ for row in range(1, dataframe1.max_row):
     img = qrcode.make(data)
     # Saving as an image file
     img.save('MyQRCode' + str(row) + '.png')
-    dataframe1.cell(row + 1, dataframe1.max_column ).hyperlink = 'C:\\Users\\hp\\Documents\\software\\SE-task1-team5\\MyQRCode' + str(row) +'.png'
+    dataframe1.cell(row + 1, dataframe1.max_column ).hyperlink = 'MyQRCode' + str(row) +'.png'
     
 dataframe.save(fileName)
