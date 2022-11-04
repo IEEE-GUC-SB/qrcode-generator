@@ -1,7 +1,5 @@
 # Importing libraries
-import qrcode
-import openpyxl
-import sys
+import qrcode, openpyxl, sys
 
 # Ensure correct usage
 if len(sys.argv) != 2:
@@ -13,11 +11,16 @@ dataframe = openpyxl.load_workbook(fileName)
  
 # Define variable to read sheet
 dataframe1 = dataframe.active
- 
+
+dataframe1.cell(1, dataframe1.max_column + 1).value = "ID"
+
+dataframe1.cell(1, dataframe1.max_column + 2).value = "QRCode"
+
 # Iterate the loop to read the cell values
 for row in range(1, dataframe1.max_row):
     # Data to be encoded
     data = ''
+    dataframe1.cell(row, dataframe1.max_column + 1).value = row
     for col in dataframe1.iter_cols(1, dataframe1.max_column):
         data += str(col[row].value) +' '
     # Encoding data
