@@ -1,11 +1,26 @@
-# Importing library
+# Importing libraries
 import qrcode
+import openpyxl
+import sys
+
+# Ensure correct usage
+if len(sys.argv) != 2:
+    sys.exit("Usage: python3 QRCodeGenerator.py <Excel file>")
+fileName = sys.argv[1]
+
+ # Define variable to load the dataframe
+dataframe = openpyxl.load_workbook(fileName)
  
-# Data to be encoded
-data = 'QR Code using make() function'
+# Define variable to read sheet
+dataframe1 = dataframe.active
  
-# Encoding data using make() function
-img = qrcode.make(data)
- 
-# Saving as an image file
-img.save('MyQRCode1.png')
+# Iterate the loop to read the cell values
+for row in range(1, dataframe1.max_row):
+    # Data to be encoded
+    data = ''
+    for col in dataframe1.iter_cols(1, dataframe1.max_column):
+        data += str(col[row].value) +' '
+    # Encoding data
+    img = qrcode.make(data)
+    # Saving as an image file
+    img.save('MyQRCode' + str(row) +'.png')
